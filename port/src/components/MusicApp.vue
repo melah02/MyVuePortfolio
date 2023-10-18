@@ -9,7 +9,7 @@ import audio from '../assets/Akon_blame.mp3'
 import audio1 from '../assets/Airplanes.mp3'
 import audio2 from '../assets/Stuttering.mp3'
 
-import {ref,watch} from 'vue';
+import {ref} from 'vue';
 
 const currentSongIndex = ref(1)
 const isplaying = ref(false);
@@ -18,6 +18,12 @@ const songs = ref([ audio,audio1,audio2]);
 
 var audioSound = new Audio(songs.value[currentSongIndex.value]);
 
+
+const playCurrentSong = ()=>{
+    audioSound.pause();
+    var audioSound = new Audio(songs.value[currentSongIndex.value]);
+    audioSound.play();
+}
 
 const handlePlay = () =>{
     isplaying.value = !isplaying.value
@@ -41,25 +47,25 @@ const handlePause = () =>{
     }
     
 }
-const handlePrev = () =>{
+const handlePrev = () =>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
    
     if (currentSongIndex.value < songs.value.length - 1){
         audioSound.pause()
         currentSongIndex.value = currentSongIndex.value--;
     }
     
-    handlePlay();
+    playCurrentSong()
 }
 
 
 const handleNext = () =>{
-     if (currentSongIndex.value < songs.value.length - 1){
+    if (currentSongIndex.value < songs.value.length - 1){
         audioSound.pause()
         currentSongIndex.value = currentSongIndex.value++;
     }else{
         currentSongIndex.value = 0;
     }
-    handlePlay();
+    playCurrentSong()
 }
 
 
