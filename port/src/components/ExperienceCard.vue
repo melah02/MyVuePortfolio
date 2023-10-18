@@ -10,25 +10,25 @@ const experience = year[3] - 2020
 </script>
 
 <template>
- 
+    <Transition name="fadeIn" appear>
+
         <Container>
-                <div class="cardContainer">
-                    <div class="experience">{{ experience }}<span> Years Experience</span></div>
-                    <div class="cardsContent">
-                        <div class="htmlCss">
-                            <div class="html">HTML</div>
-                            <div class="css">CSS</div>
-                        </div>
+            <div class="cardContainer">
+                <div class="experience">{{ experience }}<span> Years Experience</span></div>
+                <div class="cardsContent">
+                    <div class="htmlCss">
+                        <div class="html">HTML</div>
+                        <div class="css">CSS</div>
+                    </div>
                         <div class="javascriptVue">
                             <div class="javascript">JAVASCRIPT</div>
                             <div class="vue">VUEJS</div>
                         </div>
                     </div>
                 </div>
-        </Container>
-
-  
-</template>
+            </Container>
+    </Transition>
+        </template>
 
 <style scoped>
 
@@ -124,14 +124,18 @@ const experience = year[3] - 2020
 }
 }
 
-
-
-
-
-.man{
-    background-color: #121216;
-    background-color: #ca2422;
-    background-color: #352e34;
+.fadeIn-enter-from{
+    opacity: 0;
+    margin-right: -100px;
 }
+.fadeIn-enter-to{
+    opacity: 1;
+    margin-right: 0px;
+}
+.fadeIn-enter-active{
+    transition: all 1s ease;
+}
+
+
 
 </style>

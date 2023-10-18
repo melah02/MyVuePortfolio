@@ -5,31 +5,35 @@ import pause from '../assets/pause.svg'
 import play from '../assets/play.svg'
 import ButtonContainer from './ButtonContainer.vue'
 
-import audio from '../assets/Akon_blame.mp3'
-import audio1 from '../assets/Airplanes.mp3'
-import audio2 from '../assets/Stuttering.mp3'
+import audio from '../assets/alan.mp3'
+import audio1 from '../assets/alan1.mp3'
+import audio2 from '../assets/alan2.mp3'
+import audio3 from '../assets/alan3.mp3'
+import audio4 from '../assets/alan4.mp3'
 
-import {ref} from 'vue';
+import {ref,watch,computed} from 'vue';
 
-const currentSongIndex = ref(1)
+const currentSongIndex = ref(0)
 const isplaying = ref(false);
 
-const songs = ref([ audio,audio1,audio2]);
+const songs = ref([ audio,audio1,audio2,audio3,audio4]);
+    
+    const audio1Sound = computed(() => {
+      return new Audio(songs.value[currentSongIndex.value]);
+    });
 
-var audioSound = new Audio(songs.value[currentSongIndex.value]);
+    
+    watch(currentSongIndex, () => {
+      audio1Sound.value = new Audio(songs.value[currentSongIndex.value]);
+    });
 
+  
 
-const playCurrentSong = ()=>{
-    audioSound.pause();
-    var audioSound = new Audio(songs.value[currentSongIndex.value]);
-    audioSound.play();
-}
 
 const handlePlay = () =>{
-    isplaying.value = !isplaying.value
-    
+    isplaying.value = !isplaying.value;
     if(isplaying){
-        audioSound.play();
+        audio1Sound.value.play();
         isplaying.value = true;
     }
     
@@ -41,31 +45,40 @@ const handlePause = () =>{
     isplaying.value = !isplaying.value
     
     if(isplaying){
-        audioSound.pause();
-        
+        audio1Sound.value.pause();
         isplaying.value = false;
     }
     
 }
-const handlePrev = () =>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-   
-    if (currentSongIndex.value < songs.value.length - 1){
-        audioSound.pause()
-        currentSongIndex.value = currentSongIndex.value--;
+const handlePrev = () =>{    
+    handlePause();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+    if (currentSongIndex.value === 0){
+        currentSongIndex.value = songs.value.length - 1;
+        audio1Sound.value = new Audio(songs.value[currentSongIndex.value]);
+        handlePlay();
+    }else{
+        currentSongIndex.value = currentSongIndex.value - 1;
+        audio1Sound.value = new Audio(songs.value[currentSongIndex.value]);
+        handlePlay();
     }
     
-    playCurrentSong()
+    
 }
 
 
 const handleNext = () =>{
-    if (currentSongIndex.value < songs.value.length - 1){
-        audioSound.pause()
-        currentSongIndex.value = currentSongIndex.value++;
+    audio1Sound.value.pause();
+    currentSongIndex.value = currentSongIndex.value + 1;
+    if (currentSongIndex.value <= songs.value.length - 1){
+        audio1Sound.value = new Audio(songs.value[currentSongIndex.value]);
+        handlePlay();
     }else{
         currentSongIndex.value = 0;
+        audio1Sound.value = new Audio(songs.value[currentSongIndex.value]);
+        handlePlay();
     }
-    playCurrentSong()
+   
 }
 
 

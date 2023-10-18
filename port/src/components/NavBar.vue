@@ -1,22 +1,29 @@
 <script setup>
-import {ref} from 'vue';
+import {RouterLink} from 'vue-router'
+import { storeToRefs } from 'pinia';
 
-const isActive = ref(false);
+import {portfolioState} from '../stores/portfolioState'
+
+const usePortfolioState = portfolioState()
+
+
+const {isActive} = storeToRefs(usePortfolioState);
+
+
 
 const toggleHandler = ()=>{
-isActive.value = !isActive.value;
+usePortfolioState.toggleActive();
 }
-
 
 </script>
 
 <template>
   <nav class="nav">
-    <div class="logo">M</div>
+    <div class="logo"><RouterLink @click="isActive = false" to="/">M</RouterLink></div>
     <ul :class="!isActive ? 'ul' : 'active' ">
-        <li>About</li>
-        <li>Contact</li>
-        <li>Projects</li>
+        <li><RouterLink @click="isActive = false" to="/about" >About</RouterLink></li>
+        <li><RouterLink @click="isActive = false" to="/" >Contact</RouterLink></li>
+        <li><RouterLink @click="isActive = false" to="/" >Projects</RouterLink></li>
     </ul>
     <div @click="toggleHandler"  class="hamburgerContainer">
         <div :class="isActive ? 'firstToggle': 'first' "  style="{}" ></div>
@@ -28,6 +35,7 @@ isActive.value = !isActive.value;
 </template>
 
 <style scoped>
+
 .nav{
     background-color: #352e34;
     height: 5rem;
@@ -37,10 +45,12 @@ isActive.value = !isActive.value;
     padding:0 4rem;
     width: 100%;
 }
-.logo{
-     color:#d44a47;
-     font-size: 2rem;
-     font-weight: 700;
+
+.logo a{
+    color:#d44a47;
+    font-size: 2rem;
+    font-weight: 700;
+    
 }
 
 .nav ul{
@@ -55,6 +65,13 @@ isActive.value = !isActive.value;
 }
 .hamburgerContainer{
     display: none;
+}
+a{
+    text-decoration: none;
+}
+
+ul li a{
+    color: white;
 }
 
 

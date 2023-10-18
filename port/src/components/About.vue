@@ -7,16 +7,17 @@ import ButtonContainer from './ButtonContainer.vue';
 <template>
     <Container>
         <section>
-            <div><img :src="image" alt="image"/></div>
-            <div class="aboutContainer">
-                <span class="name">Hello, I'm Melah. </span>
-                <h1>Web Developer</h1>
-                <p>Code Magician, Weaving Digital Dreams. Turning Lines of code into Interactive Masterpieces.
-                    Elevating User Experiences,One Click at a Time.
-                </p>
-                   <ButtonContainer>Resume</ButtonContainer>
-                   
-            </div>
+                <div><img :src="image" alt="image"/></div>
+            <Transition name="slideIn" appear>
+                <div class="aboutContainer">
+                    <span class="name">Hello, I'm Melah. </span>
+                    <h1>Web Developer</h1>
+                    <p>Code Magician, Weaving Digital Dreams. Turning Lines of code into Interactive Masterpieces.
+                        Elevating User Experiences,One Click at a Time.
+                    </p>
+                    <ButtonContainer>Resume</ButtonContainer>    
+                </div>
+            </Transition>
         </section>
     </Container>
 </template>
@@ -70,9 +71,24 @@ section{
 
 }
 
-.man{
+/* .man{
     background-color: #121216;
     background-color: #ca2422;
     background-color: #352e34;
+} */
+
+
+
+.slideIn-enter-from{
+    opacity: 0;
+    margin-right: -200px;
 }
+.slideIn-enter-to{
+    opacity: 1;
+    margin-right: 0px;
+}
+.slideIn-enter-active{
+    transition: all 1s ease;
+}
+
 </style>
